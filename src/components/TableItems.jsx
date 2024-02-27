@@ -65,37 +65,47 @@ const data = [
 //     createData('Accommadation maintenance', 159, 6.0, 24, 4.0),
 //     createData('Accrued Expenses', 237, 9.0, 37, 4.3),
 // ];
-const CreateTableRows = ({ data, dispatch }) => (
-    <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 }, cursor: 'pointer' }} onDoubleClick={() => dispatch(data)}>
-        <TableCell component="th" scope="row" >
-            <Stack><Box sx={{ typography: 'body2', fontWeight: 500, color: 'text.main' }}>{data?.account_name}</Box></Stack>
-            <Stack><Box sx={{ typography: 'body2', fontSize: '13px', fontWeight: 'light' }}>closing balance: $23</Box></Stack>
-        </TableCell>
-        <TableCell align="left"><Chip label={data?.type} size="small" sx={{ color: data?.type === 'credit' ? 'success.main' : 'danger.main', backgroundColor: data?.type === 'credit' ? 'success.light' : 'danger.light' }} /></TableCell>
-        <TableCell align="left">{data?.credit}</TableCell>
-        <TableCell align="left"><Box sx={{ fontWeight: 'bold' }}>{data?.debit}</Box></TableCell>
-        <TableCell sx={{ typography: 'body2', fontSize: '12.5px', fontWeight: 'light', textAlign: 'left', overflowWrap: 'break-word', width: '50px' }}>
-            {data?.remarks}
-        </TableCell>
-        <TableCell align="right">
-            <Stack direction='row'>
-
-                <IconButton aria-label="edit" onClick={() => dispatch(data)}>
-                    <DriveFileRenameOutlineIcon fontSize="small" />
-                </IconButton>
-                <IconButton aria-label="delete" >
-                    <DeleteOutlineIcon color='danger' fontSize="small" />
-                </IconButton>
-            </Stack>
-        </TableCell>
-    </TableRow>
-)
 
 export default function Items() {
     const [rows, setRows] = React.useState(data)
     const [edit, setEdit] = React.useState(null)
     const inputRefs = React.useRef([]);
     const { playSound } = useWithSound(error);
+
+    const CreateTableRows = ({ data, dispatch }) => {
+        const doubleClick = (index) => {
+            dispatch(data)
+            setTimeout(() => {
+                inputRefs.current[index].focus();
+            });
+        }
+
+        return (
+            <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }} >
+                <TableCell onDoubleClick={() => doubleClick(0)} component="th" scope="row" >
+                    <Stack><Box sx={{ typography: 'body2', fontWeight: 500, color: 'text.main' }}>{data?.account_name}</Box></Stack>
+                    <Stack><Box sx={{ typography: 'body2', fontSize: '13px', fontWeight: 'light' }}>closing balance: $23</Box></Stack>
+                </TableCell>
+                <TableCell onDoubleClick={() => doubleClick(1)} align="left"><Chip label={data?.type} size="small" sx={{ color: data?.type === 'credit' ? 'success.main' : 'danger.main', backgroundColor: data?.type === 'credit' ? 'success.light' : 'danger.light' }} /></TableCell>
+                <TableCell onDoubleClick={() => doubleClick(2)} align="left">{data?.credit}</TableCell>
+                <TableCell onDoubleClick={() => doubleClick(3)} align="left"><Box sx={{ fontWeight: 'bold' }}>{data?.debit}</Box></TableCell>
+                <TableCell onDoubleClick={() => doubleClick(4)} sx={{ typography: 'body2', fontSize: '12.5px', fontWeight: 'light', textAlign: 'left', overflowWrap: 'break-word', width: '50px' }}>
+                    {data?.remarks}
+                </TableCell>
+                <TableCell align="right">
+                    <Stack direction='row'>
+
+                        <IconButton aria-label="edit" onClick={() => dispatch(data)}>
+                            <DriveFileRenameOutlineIcon fontSize="small" />
+                        </IconButton>
+                        <IconButton aria-label="delete" >
+                            <DeleteOutlineIcon color='danger' fontSize="small" />
+                        </IconButton>
+                    </Stack>
+                </TableCell>
+            </TableRow>
+        )
+    }
     const EditRows = () => {
         const handleChange = (event, index) => {
 
@@ -107,7 +117,9 @@ export default function Items() {
         };
         const onKeyDown = (event, index) => {
             if (event.key === 'Enter') {
-                dispatch()
+                if (edit?.account_name && edit?.type && (edit?.credit || edit?.debit) && edit?.remarks) {
+            }
+                    dispatch()
             } else if (event.key === 'Tab') {
                 event.preventDefault();
                 console.log('tab', index);
@@ -118,13 +130,13 @@ export default function Items() {
             }
         }
         const dispatch = () => {
-            if(edit?.account_name && edit?.type && (edit?.credit || edit?.debit) && edit?.remarks){
+            if (edit?.account_name && edit?.type && (edit?.credit || edit?.debit) && edit?.remarks) {
                 const arr = rows
                 if (!!data?.id) setEdit(prev => ({ ...prev, id: arr?.length }))
                 arr[edit?.id] = edit
                 setRows([...arr])
                 setEdit(null)
-            }else{
+            } else {
                 playSound()
             }
         }
@@ -150,8 +162,8 @@ export default function Items() {
                                 onKeyDown(e, 1)
                             }}
                             sx={{ width: 300 }}
-                            renderInput={(params) => <TextField  {...params}  label="" />}
-                            InputProps={{ sx: { borderRadius: 3 } }} 
+                            renderInput={(params) => <TextField  {...params} label="" />}
+                            InputProps={{ sx: { borderRadius: 3 } }}
                         />
                     </Box>
                 </TableCell>
