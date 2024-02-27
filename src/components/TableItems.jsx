@@ -84,7 +84,7 @@ const CreateTableRows = ({ data, dispatch }) => (
                     <DriveFileRenameOutlineIcon fontSize="small" />
                 </IconButton>
                 <IconButton aria-label="delete" >
-                    <DeleteOutlineIcon color='primary' fontSize="small" />
+                    <DeleteOutlineIcon color='danger' fontSize="small" />
                 </IconButton>
             </Stack>
         </TableCell>
