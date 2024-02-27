@@ -33,7 +33,7 @@ const currencies = [
         label: '¥',
     },
 ];
-const accounts = ['Anjith', 'Accomodation maintenance', 'Abhijith']
+const accounts = ['user', 'Accomodation maintenance', 'user1']
 
 const data = [
     {
@@ -46,7 +46,7 @@ const data = [
     },
     {
         id: 1,
-        account_name: 'Accomodation maintenance',
+        account_name: 'user',
         type: 'credit',
         credit: 323,
         debit: 256,
@@ -71,7 +71,7 @@ const CreateTableRows = ({ data, dispatch }) => (
             <Stack><Box sx={{ typography: 'body2', fontWeight: 500, color: 'text.main' }}>{data?.account_name}</Box></Stack>
             <Stack><Box sx={{ typography: 'body2', fontSize: '13px', fontWeight: 'light' }}>closing balance: $23</Box></Stack>
         </TableCell>
-        <TableCell align="left"><Chip label={data?.type} size="small" sx={{ color: "success", backgroundColor: data?.type === 'credit' ? 'green' : 'red' }} /></TableCell>
+        <TableCell align="left"><Chip label={data?.type} size="small" sx={{ color: data?.type === 'credit' ? 'success.main' : 'danger.main', backgroundColor: data?.type === 'credit' ? 'success.light' : 'danger.light' }} /></TableCell>
         <TableCell align="left">{data?.credit}</TableCell>
         <TableCell align="left"><Box sx={{ fontWeight: 'bold' }}>{data?.debit}</Box></TableCell>
         <TableCell sx={{ typography: 'body2', fontSize: '12.5px', fontWeight: 'light', textAlign: 'left', overflowWrap: 'break-word', width: '50px' }}>

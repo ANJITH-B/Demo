@@ -56,7 +56,7 @@ export default function ScrollDialog() {
                 <DialogTitle id="scroll-dialog-title" >
                     <Stack direction="row" pt={2} style={{ marginBottom: '-10px' }}>
                         <Stack sx={{ flexGrow: 1 }} direction='row'>
-                            <Typography paddingRight={2}><Box sx={{ typography: 'body1', fontWeight: 'bold' }}>Journal</Box></Typography>
+                            <Typography paddingRight={2}><Box sx={{ typography: 'body1', fontWeight: 'bold', pt:'4px' }}>Journal</Box></Typography>
                             <TextField
                                 sx={{ color: "primary.main", maxWidth: '130px', minWidth: '10px' }}
                                 value='JV2023-6456466'
