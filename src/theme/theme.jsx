@@ -24,6 +24,9 @@ const Theme = ({ mode = 'light', setMode = () => { } }) => {
       success: { main: sucessColor, light: sucessLight},
       danger: { main: dangerColor, light: dangerLight}
     },
+    typography: {
+      fontFamily: "Poppins, sans-serif",
+    },
   });
 
   return { toggleColorMode, theme };

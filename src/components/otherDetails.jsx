@@ -13,7 +13,7 @@ const OtherDetails = () => {
         </Typography>
         <Paper fullWidth sx={{  borderRadius: 3,p: 2 }} variant="outlined">
             <Typography py={2}>
-                <Box sx={{ typography: 'body1', fontSize: '13.5px', fontWeight: 'light', color: 'text.main' }}>
+                <Box sx={{ typography: 'body1', fontSize: '13px', fontWeight: 'light', color: 'text.main' }}>
                     Journal is a consise record of all transaction a business condutucts: journal entries detail how transactions
                      affect accounts and banlances. All financial reporting is based on the data contained in journal entries, and 
                      there are various types to meeet business needs.
