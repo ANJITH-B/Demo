@@ -7,7 +7,7 @@ const Theme = ({ mode = 'light', setMode = () => { } }) => {
 
   const primaryColor = mode === 'light' ? "#3f50b5" : "#757ce8";
   const secondaryColor = mode === 'light' ? '#000' : '#000'
-  const secondaryDark = mode === 'light' ? '#ffcdd2' : '#b26059'
+  const secondaryDark = mode === 'light' ? '#ffebee' : 'rgba(140, 45, 45, 0.4)'
   const textColor = mode === "light" ? '#000' : '#fff';
   const lightColor = mode === 'light' ? '#bdbdbd':'#757575'
   const sucessLight = mode === 'light' ? '#c8e6c9':'#c8e6c9'

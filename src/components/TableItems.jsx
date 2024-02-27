@@ -168,7 +168,9 @@ export default function Items() {
                             onKeyDown={e => onKeyDown(e, 0)}
                             onChange={(e, value) => {
                                 setEdit({ ...edit, account_name: value })
-                                onKeyDown(e, 1)
+                                setTimeout(() => {
+                                    inputRefs.current[0].focus();
+                                });
                             }}
                             sx={{ width: 300 }}
                             renderInput={(params) => <TextField  {...params} label="" name='account_name' />}
@@ -191,7 +193,9 @@ export default function Items() {
                             name='type'
                             onChange={(e, value) => {
                                 setEdit({ ...edit, type: value })
-                                onKeyDown(e, 1)
+                                setTimeout(() => {
+                                    inputRefs.current[1].focus();
+                                });
                             }}
                             sx={{ width: 300 }}
                             renderInput={(params) => <TextField {...params} label="" name='type' />}
