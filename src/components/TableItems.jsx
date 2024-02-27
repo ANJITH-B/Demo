@@ -118,8 +118,17 @@ export default function Items() {
         const onKeyDown = (event, index) => {
             if (event.key === 'Enter') {
                 if (edit?.account_name && edit?.type && (edit?.credit || edit?.debit) && edit?.remarks) {
-            }
                     dispatch()
+                    return
+                }
+                if (edit?.[event?.target?.name]) {
+                    setTimeout(() => {
+                        const nextIndex = (index + 1) % inputRefs.current.length;
+                        inputRefs.current[nextIndex].focus();
+                    });
+                } else {
+                    playSound()
+                }
             } else if (event.key === 'Tab') {
                 event.preventDefault();
                 console.log('tab', index);
@@ -149,7 +158,7 @@ export default function Items() {
                     <Box sx={{ ml: '0px' }}>
                         <Autocomplete
                             size='small'
-
+                            name='account_name'
                             style={{ width: '180px', }}
                             ref={(el) => (inputRefs.current[0] = el?.querySelector('input'))}
                             disablePortal
@@ -162,7 +171,7 @@ export default function Items() {
                                 onKeyDown(e, 1)
                             }}
                             sx={{ width: 300 }}
-                            renderInput={(params) => <TextField  {...params} label="" />}
+                            renderInput={(params) => <TextField  {...params} label="" name='account_name' />}
                             InputProps={{ sx: { borderRadius: 3 } }}
                         />
                     </Box>
@@ -185,31 +194,10 @@ export default function Items() {
                                 onKeyDown(e, 1)
                             }}
                             sx={{ width: 300 }}
-                            renderInput={(params) => <TextField {...params} label="" />}
+                            renderInput={(params) => <TextField {...params} label="" name='type' />}
                         />
                     </Box>
                 </TableCell>
-                {/* <TableCell>
-                            <Box sx={{ ml: '-20px' }}>
-                                <TextField
-                                //  ref={(el) => (inputRefs.current[1] = el?.querySelector('input'))}
-                                 select
-                                    id="outlined-size-small"
-                                    defaultValue="hello"
-                                    size="small"
-                                    name='type'
-                                    InputProps={{ sx: { borderRadius: 3 } }}
-                                    style={{ width: '130px', }}
-                                    value={edit?.type}
-                                    onChange={e=>handleChange(e,1)} 
-                                    onKeyDown={e=>onKeyDown(e,1)}
-                                >
-                                    <MenuItem value={'credit'}>credit</MenuItem>
-                                    <MenuItem value={'debit'}>debit</MenuItem>
-                                </TextField>
-                            </Box>
-                        </TableCell> */}
-
                 <TableCell><TextField sx={{ width: '115px', ml: '-20px' }} size="small" onChange={e => handleChange(e, 2)} onKeyDown={e => onKeyDown(e, 2)} ref={(el) => (inputRefs.current[2] = el?.querySelector('input'))}
                     name='credit' value={edit?.credit} InputProps={{ sx: { borderRadius: 3 } }} id="outlined-basic" variant="outlined" /></TableCell>
                 <TableCell><TextField sx={{ width: '115px', ml: '-20px' }} size="small" onChange={e => handleChange(e, 3)} onKeyDown={e => onKeyDown(e, 3)} ref={(el) => (inputRefs.current[3] = el?.querySelector('input'))} name='debit' value={edit?.debit} InputProps={{ sx: { borderRadius: 3 } }} id="outlined-basic" variant="outlined" /></TableCell>
@@ -256,35 +244,6 @@ export default function Items() {
 
                         <TableRow >
                             <Stack direction='row' sx={{ m: 1 }}>
-                                {/* <TextField
-                                    sx={{ width: '220px', borderRadius: 6, pl: 1 }}
-                                    select
-                                    id="outlined-size-small"
-                                    defaultValue="hello"
-                                    size="small"
-                                    InputProps={{ sx: { borderRadius: 3 } }}
-                                >
-                                    {currencies.map((option) => (
-                                        <MenuItem key={option.value} value={option.value}>
-                                            {option.label}
-                                        </MenuItem>
-                                    ))}
-                                </TextField> */}
-
-
-                                {/* <TextField
-                                    sx={{ width: '220px', borderRadius: 6, pl: 1 }} selectid="outlined-size-small"
-                                    defaultValue="hello" size="small" InputProps={{ sx: { borderRadius: 3 } }}
-                                >
-                                    {currencies.map((option) => (
-                                        <MenuItem key={option.value} value={option.value}>
-                                            {option.label}
-                                        </MenuItem>
-                                    ))}
-                                </TextField> */}
-
-
-
                             </Stack>
                         </TableRow>
                     </TableBody>
